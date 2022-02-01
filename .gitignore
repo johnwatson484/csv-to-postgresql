@@ -43,4 +43,5 @@ helm/**/*.lock
 .sonarqube/
 
 .env
-Files/
+input/
+output/
