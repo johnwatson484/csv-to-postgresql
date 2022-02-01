@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+
+set -e
+projectRoot="$(a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; cd "$a/.." || return; pwd)"
+
+service="csv-to-postgres"
+
+show_help() {
+  echo "
+    Usage: scripts/test [OPTION...]
+    Run tests.
+
+    Options:
+      -b, --build   build container before running
+      -h, --help    display this help text
+    "
+}
+
+while :; do
+  case $1 in
+    -b|--build)
+      build="true"
+      ;;
+
+    -h|--help)   # Call a "show_help" function to display a synopsis, then exit.
+      show_help
+      exit
+      ;;
+    *)
+      break
+  esac
+
+  shift
+done
+
+compose() {
+  if [ "${watch}" = "true" ]; then
+    docker-compose $@
+  else
+    docker-compose -f docker-compose.yaml $@
+  fi
+}
+
+(
+  cd "${projectRoot}"
+
+  mkdir -p ./input
+  mkdir -p ./output
+
+  if [ "${build}" = "true" ]; then
+    compose build
+  fi
+
+  # Run app
+  compose run ${service} ${command}
+
+)

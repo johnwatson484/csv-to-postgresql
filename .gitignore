@@ -1,0 +1,46 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+
+# User Files
+*.suo
+*.user
+*.userosscache
+
+# Local Build
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Other
+.vs/
+tasks.json
+.vscode/
+!.vscode/launch.json
+
+#Test Files
+test-output/
+TestResults/
+coverage.json
+lcov.info
+*.tgz
+helm/**/*.lock
+.sonarqube/
+
+.env
+Files/
