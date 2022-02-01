@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Globalization;
 using System.Collections.Generic;
+using CsvHelper;
 
 namespace CsvToPostgreSql
 {
@@ -25,12 +28,27 @@ namespace CsvToPostgreSql
                 }
 
                 Console.WriteLine("Enter filepath to CSV");
-                string csvPath = Console.ReadLine();
-                while (string.IsNullOrEmpty(csvPath))
+                string csvFilepath = Console.ReadLine();
+                while (string.IsNullOrEmpty(csvFilepath))
                 {
                     LogError("Invalid filepath");
-                    csvPath = Console.ReadLine();
+                    csvFilepath = Console.ReadLine();
                 }
+                
+                string outboundFolder = Path.Combine(AppContext.BaseDirectory, "output");
+                Directory.CreateDirectory(outboundFolder);
+
+                using (var reader = new StreamReader(csvFilepath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var records = csv.GetRecords<dynamic>();
+                    foreach (var item in records)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+
+
 
 
                 gatheringParams = false;
