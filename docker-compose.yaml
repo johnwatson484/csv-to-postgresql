@@ -7,5 +7,5 @@ services:
     image: csv-to-postgres
     container_name: csv-to-postgres
     volumes:
-      - ./input:/home/dotnet/input
-      - ./output:/home/dotnet/output
+      - ./input:/home/node/input
+      - ./output:/home/node/output

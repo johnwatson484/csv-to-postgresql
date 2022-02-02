@@ -1,38 +1,25 @@
 # Development
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS development
+FROM node:16-alpine AS development
+ENV NODE_ENV development
+ARG PORT=3000
+ENV PORT ${PORT}
+EXPOSE ${PORT} 9229
+# Set global npm dependencies to be stored under the node user directory
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
 
-RUN apk update \
-  && apk --no-cache add curl procps unzip \
-  && wget -qO- https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l /vsdbg
+RUN apk update && \
+    apk add --no-cache git
 
-RUN addgroup -g 1000 dotnet \
-    && adduser -u 1000 -G dotnet -s /bin/sh -D dotnet
-
-USER dotnet
-WORKDIR /home/dotnet
-
-COPY --chown=dotnet:dotnet ./Directory.Build.props ./Directory.Build.props
-RUN true
-COPY --chown=dotnet:dotnet ./CsvToPostgreSql/*.csproj ./CsvToPostgreSql/
-RUN dotnet restore ./CsvToPostgreSql/CsvToPostgreSql.csproj
-
-COPY --chown=dotnet:dotnet ./CsvToPostgreSql/ ./CsvToPostgreSql/
-RUN dotnet publish ./CsvToPostgreSql/ -c Release -o /home/dotnet/out
-
-ENV ASPNETCORE_ENVIRONMENT=development
-# Override entrypoint using shell form so that environment variables are picked up
-ENTRYPOINT dotnet watch --project ./CsvToPostgreSql run
+USER node
+WORKDIR /home/node
+COPY --chown=node:node package*.json ./
+RUN npm install --production=false
+COPY --chown=node:node . .
+CMD [ "npm", "run", "start:watch" ]
 
 # Production
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS production
-
-RUN addgroup -g 1000 dotnet \
-    && adduser -u 1000 -G dotnet -s /bin/sh -D dotnet
-
-USER dotnet
-WORKDIR /home/dotnet
-
-COPY --from=development /home/dotnet/out/ ./
-ENV ASPNETCORE_ENVIRONMENT=production
-# Override entrypoint using shell form so that environment variables are picked up
-ENTRYPOINT dotnet CsvToPostgreSql.dll
+FROM development AS production
+ENV NODE_ENV production
+RUN npm ci
+CMD [ "node", "app" ]

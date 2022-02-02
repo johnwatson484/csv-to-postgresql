@@ -12,6 +12,7 @@ show_help() {
 
     Options:
       -b, --build   build container before running
+      -w, --watch   run container with file watching
       -h, --help    display this help text
     "
 }
@@ -20,6 +21,10 @@ while :; do
   case $1 in
     -b|--build)
       build="true"
+      ;;
+
+    -w|--watch)
+      watch="true"
       ;;
 
     -h|--help)   # Call a "show_help" function to display a synopsis, then exit.
