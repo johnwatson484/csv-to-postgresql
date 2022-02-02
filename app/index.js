@@ -40,7 +40,7 @@ const convertCsvToPostgreSql = async () => {
         }
       }
       if(i < lines.length - 1){
-        statement = statement.concat('),\n ')
+        statement = statement.concat('),\n')
       } else {
         statement = statement.concat(');')
       }
