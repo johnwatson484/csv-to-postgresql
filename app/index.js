@@ -32,9 +32,12 @@ const convertCsvToPostgreSql = async () => {
     statement = statement.concat(')\n')
 
     for (let i = 0; i < lines.length; i++) {
-      statement = statement.concat('VALUES (')
+      if(i === 0){
+        statement = statement.concat('VALUES ')
+      }
+      statement = statement.concat('(')
       for (let y = 0; y < lines[i].length; y++) {
-        statement = statement.concat(`"${lines[i][y]}"`)
+        statement = statement.concat(`'${lines[i][y]}'`)
         if(y < lines[i].length - 1){
           statement = statement.concat(', ')
         }
