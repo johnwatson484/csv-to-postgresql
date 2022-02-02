@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=johnwatson484_csv-to-postgresql&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=johnwatson484_csv-to-postgresql)
+[![Known Vulnerabilities](https://snyk.io/test/github/johnwatson484/csv-to-postgresql/badge.svg)](https://snyk.io/test/github/johnwatson484/csv-to-postgresql)
+
 # csv-to-postgresql
 Convert CSV to PostgreSQL insert script
 
