@@ -57,6 +57,9 @@ compose() {
   fi
 
   # Run app
-  compose run ${service} ${command}
-
+  if [ "${watch}" = "true" ]; then
+    compose up $@
+  else
+    compose run ${service} ${command}
+  fi
 )

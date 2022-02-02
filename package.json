@@ -1,0 +1,24 @@
+{
+  "name": "csv-to-postgresql",
+  "version": "1.0.0",
+  "description": "Convert CSV to PostgreSQL insert script",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js",
+    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnwatson484/csv-to-postgresql.git"
+  },
+  "author": "John Watson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnwatson484/csv-to-postgresql/issues"
+  },
+  "homepage": "https://github.com/johnwatson484/csv-to-postgresql#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "standard": "^16.0.4"
+  }
+}

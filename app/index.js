@@ -49,10 +49,11 @@ const convertCsvToPostgreSql = async () => {
       }
     }
 
-    const scriptPath = path.resolve(outputPath, `${csvFile.name}.sql`)
+    const scriptName = `${csvFile.name}.sql`
+    const scriptPath = path.resolve(outputPath, scriptName)
 
     await fs.writeFile(scriptPath,statement)
-    console.log(statement)
+    console.log(`Generated ${scriptName}`)
   }
 }
 
