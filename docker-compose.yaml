@@ -9,3 +9,5 @@ services:
     volumes:
       - ./input:/home/node/input
       - ./output:/home/node/output
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=8192"
