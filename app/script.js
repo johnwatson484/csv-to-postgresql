@@ -35,5 +35,5 @@ const generateValues = (statement, lines) => {
 
 module.exports = {
   generateInsert,
-  generateValues
+  generateValues,
 }

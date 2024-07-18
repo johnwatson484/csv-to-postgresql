@@ -23,5 +23,5 @@ const getCsvData = async (filepath) => {
 
 module.exports = {
   getCsvFiles,
-  getCsvData
+  getCsvData,
 }
